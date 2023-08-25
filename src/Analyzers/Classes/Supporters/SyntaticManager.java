@@ -3,6 +3,7 @@ package Analyzers.Classes.Supporters;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import Analyzers.Classes.Dates.Word;
 import Analyzers.Interface.Information;
 
 public class SyntaticManager implements Information{
@@ -10,9 +11,20 @@ public class SyntaticManager implements Information{
     private Matcher matcher;
     private String stateMessage;
     private int lastIndex;
+
     @Override
     public String information() {
         return stateMessage;
+    }
+
+    public char preanalisis(Word[] words, String inString, int index){
+        int i = 0;
+        for (i = 0; i < words.length; i++) {
+            if(isThere(words[i].getlexema(),inString, index) == Belongs.YES){
+              return words[i].getId();  
+            }
+        }
+        return '0';
     }
 
     public String removeWhite(String s) {

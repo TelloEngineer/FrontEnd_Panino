@@ -2,9 +2,12 @@ package Analyzers.Classes.Grammars;
 
 import java.util.concurrent.CancellationException;
 
+import Analyzers.Classes.Supporters.SyntaticManager;
 import Analyzers.Interface.Grammar;
 
-public class FirstGrammar implements Grammar {
+public class FirstGrammar2 implements Grammar {
+    
+    public FirstGrammar2(){}
     // private
    //---tribute---
    private String inString;
@@ -12,28 +15,19 @@ public class FirstGrammar implements Grammar {
    private int cursor;
    private char preanalis;
    private String errorMessage;
-
-   public FirstGrammar(){
-        this.inString = "";
-        this.index = 0;
-        this.cursor = 0;
-        this.preanalis = ' ';
-        this.errorMessage = ""; 
-    }
+   private SyntaticManager lexical = new SyntaticManager();
    //---methods---
-   private void coincidir(char character){
+   private void coincidir(String regular_expression){
         //System.out.println("coincidi");
-        final boolean itIsMatching = (character == preanalis);
-        if (!itIsMatching){
-            errorMessage= "deberia tener un '" + character + "' en el caracter: " + cursor;  
+        final Belongs itIsMatching = lexical.analizer(regular_expression, inString, index);
+        if (itIsMatching == Belongs.YES){
+            errorMessage= lexical.information();  
             throw new CancellationException(); 
         }
-        System.out.println(character);
+        System.out.println(regular_expression);
         if(index < inString.length()-1){
-            index++;
-            inString = inString.substring(0, index);
-            cursor = cursor + index + 2;
-            index = 0;
+            index = lexical.getLastIndex();
+            cursor = index + 2;
         }
    }
     private void subAdd(){ // usando iteraciones.
@@ -42,11 +36,11 @@ public class FirstGrammar implements Grammar {
             preanalis = inString.charAt(index);
             switch (preanalis){ //pre-analysis
                 case '+':
-                    coincidir('+');
+                    coincidir("[+]");
                     term();
                     continue;
                 case '-':
-                    coincidir('-');
+                    coincidir("[-]");
                     term();
                     continue;
                 default:
@@ -65,11 +59,11 @@ public class FirstGrammar implements Grammar {
             preanalis = inString.charAt(index);
             switch (preanalis){ //pre-analysis
                 case '*':
-                    coincidir('*');
+                    coincidir("[*]");
                     factor();
                     continue;
                 case '/':
-                    coincidir('/');
+                    coincidir("[/]");
                     factor();
                     continue;
                 default:
@@ -83,9 +77,9 @@ public class FirstGrammar implements Grammar {
             preanalis = inString.charAt(index);
             switch(preanalis){
                 case '(':   
-                    coincidir('(');
+                    coincidir("[(]");
                     expression();
-                    coincidir(')');
+                    coincidir("[)]");
                     return;
                 default:
                     digito();
@@ -98,7 +92,7 @@ public class FirstGrammar implements Grammar {
         final boolean digit = Character.isDigit(preanalis);
         //System.out.println("digito");
         if(digit){  
-            coincidir(preanalis);
+            coincidir("" + preanalis);
             return; 
         }
         //here, we will detect this string isn't from the language.
