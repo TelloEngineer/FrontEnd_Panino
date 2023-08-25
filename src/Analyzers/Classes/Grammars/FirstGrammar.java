@@ -28,18 +28,19 @@ public class FirstGrammar implements Grammar {
             errorMessage= "deberia tener un '" + character + "' en el caracter: " + cursor;  
             throw new CancellationException(); 
         }
-        System.out.println(character);
-        if(index < inString.length()-1){
-            index++;
-            inString = inString.substring(0, index);
-            cursor = cursor + index + 2;
-            index = 0;
+        //System.out.println(character);
+        if(1 < inString.length()){
+            int indexAdded = 1;
+            index = index + indexAdded;
+            System.out.println(inString);
+            inString = inString.substring(indexAdded);
+            cursor = index + 1;
         }
    }
     private void subAdd(){ // usando iteraciones.
         while(true){
             //System.out.println("subAdd");
-            preanalis = inString.charAt(index);
+            preanalis = inString.charAt(0);
             switch (preanalis){ //pre-analysis
                 case '+':
                     coincidir('+');
@@ -61,8 +62,8 @@ public class FirstGrammar implements Grammar {
     }
     private void divMul(){ // usando iteraciones.
         while(true){
-            System.out.println("divMul");
-            preanalis = inString.charAt(index);
+            //System.out.println("divMul");
+            preanalis = inString.charAt(0);
             switch (preanalis){ //pre-analysis
                 case '*':
                     coincidir('*');
@@ -80,7 +81,7 @@ public class FirstGrammar implements Grammar {
     private void factor(){
         while(true){
             //System.out.println("factor");
-            preanalis = inString.charAt(index);
+            preanalis = inString.charAt(0);
             switch(preanalis){
                 case '(':   
                     coincidir('(');
@@ -94,7 +95,7 @@ public class FirstGrammar implements Grammar {
         }
     }
     private void digito(){
-        preanalis = inString.charAt(index);
+        preanalis = inString.charAt(0);
         final boolean digit = Character.isDigit(preanalis);
         //System.out.println("digito");
         if(digit){  
