@@ -62,8 +62,8 @@ public class SyntaticManager implements Information{
         matcher = pattern.matcher(inString); //introdusco la cadena en el automata
         final boolean finded = matcher.find(index); //reviso si se encuentra esa expresion esta en la cadena 
         int start, end; //lexema
-        final int init = index; 
-        if (!finded){
+        final int init = indexNoWhite(inString, index);  
+        if (!finded || (init == -1)){
             stateMessage = "There isn't";
             return Belongs.NO;
         }
