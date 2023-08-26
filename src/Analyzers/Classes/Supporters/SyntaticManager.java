@@ -17,6 +17,16 @@ public class SyntaticManager implements Information{
         return stateMessage;
     }
 
+     public char preanalisis(Word[] words, String inString){
+        int i = 0;
+        for (i = 0; i < words.length; i++) {
+            if(isThere(words[i].getlexema(),inString) == Belongs.YES){
+              return words[i].getId();  
+            }
+        }
+        return '0';
+    }
+
     public char preanalisis(Word[] words, String inString, int index){
         int i = 0;
         for (i = 0; i < words.length; i++) {
@@ -38,8 +48,102 @@ public class SyntaticManager implements Information{
         // Replacing
         return matcher.replaceAll("");
     }
+    public int indexNoWhite(String string){
+        Pattern noWhite = Pattern.compile("[^\\s]");
+        Matcher findId = noWhite.matcher(string);
+        final boolean wasFind = findId.find();
+        if(!wasFind){
+            return -1;
+        }
+        return findId.start();
+    }
+
+    public Belongs analizer(String regular_expression, String inString){
+        pattern = Pattern.compile(regular_expression); //defino la expresion regular del automata
+        matcher = pattern.matcher(inString); //introdusco la cadena en el automata
+        final boolean wasFind = matcher.find(); //reviso si se encuentra esa expresion esta en la cadena 
+        int start, end; //lexema
+        final int init = indexNoWhite(inString); 
+        if (!wasFind || (init == -1)){
+            stateMessage = "no se encontro: " + regular_expression + " en linea: " + init;  
+            return Belongs.NO; 
+        }
+        start = matcher.start();
+        end = matcher.end();
+        // System.out.println("start, " + start);
+        if(start != init){ //si se encuentra en el lugar incorrecto.
+            stateMessage = "deberia expresarse con la expresion regular:'" + regular_expression + "' en la linea: " + init ;  
+            return Belongs.NO;
+        }
+        this.lastIndex = end;
+        //System.out.println(end);
+        stateMessage = inString.substring(start,end);  
+        return Belongs.YES;
+    }
+
+    public Belongs analizer_cursor(String regular_expression, String inString, int cursor){
+        pattern = Pattern.compile(regular_expression); //defino la expresion regular del automata
+        matcher = pattern.matcher(inString); //introdusco la cadena en el automata
+        final boolean wasFind = matcher.find(); //reviso si se encuentra esa expresion esta en la cadena 
+        int start, end; //lexema
+        final int init = indexNoWhite(inString); 
+        if (!wasFind || (init == -1)){
+            stateMessage = "no se encontro: " + regular_expression + " en linea: " + (init+cursor);  
+            return Belongs.NO; 
+        }
+        start = matcher.start();
+        end = matcher.end();
+        // System.out.println("start, " + start);
+        if(start != init){ //si se encuentra en el lugar incorrecto.
+            stateMessage = "deberia expresarse con la expresion regular:'" + regular_expression + "' en la linea: " + (init+cursor) ;  
+            return Belongs.NO;
+        }
+        this.lastIndex = end;
+        //System.out.println(end);
+        stateMessage = inString.substring(start,end);  
+        return Belongs.YES;
+    }
+
+    public Belongs isThere(String regular_expression, String inString){
+        pattern = Pattern.compile(regular_expression); //defino la expresion regular del automata
+        matcher = pattern.matcher(inString); //introdusco la cadena en el automata
+        final boolean finded = matcher.find(); //reviso si se encuentra esa expresion esta en la cadena 
+        int start, end; //lexema
+        final int init = indexNoWhite(inString);  
+        if (!finded || (init == -1)){
+            stateMessage = "There isn't";
+            return Belongs.NO;
+        }
+        start = matcher.start();
+        end = matcher.end();
+        // System.out.println("start, " + start);
+        if(start != init){ //si se encuentra en el lugar correcto.
+            stateMessage = "There isn't in the correct place";
+            return Belongs.NO;
+        }
+        this.lastIndex = end;
+        stateMessage = inString.substring(start,end);
+        return Belongs.YES;
+    }
+
+    public Belongs firstOcurrency(String regular_expression, String inString){
+        pattern = Pattern.compile(regular_expression); //defino la expresion regular del automata
+        matcher = pattern.matcher(inString); //introdusco la cadena en el automata
+        final boolean finded = matcher.find(); //reviso si se encuentra esa expresion esta en la cadena 
+        int start, end; //lexema 
+        if (!finded){
+            stateMessage = "There isn't any ocurrency";
+            return Belongs.NO;
+        }
+        start = matcher.start();
+        end = matcher.end();
+        this.lastIndex = end;
+        stateMessage = inString.substring(start,end);
+        return Belongs.YES;
+    }
+
     public int indexNoWhite(String string, int index){
-        Pattern noWhite = Pattern.compile("[^-\\s]");
+        Pattern noWhite = Pattern.compile("[^\\s]");
         Matcher findId = noWhite.matcher(string);
         final boolean wasFind = findId.find(index);
         if(!wasFind){
@@ -47,6 +151,7 @@ public class SyntaticManager implements Information{
         }
         return findId.start();
     }
+
     public Belongs analizer(String regular_expression, String inString, int index){
         pattern = Pattern.compile(regular_expression); //defino la expresion regular del automata
         matcher = pattern.matcher(inString); //introdusco la cadena en el automata

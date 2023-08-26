@@ -2,6 +2,7 @@ package Analyzers.Classes.Grammars;
 
 import java.util.concurrent.CancellationException;
 
+import Analyzers.Classes.Dates.Word;
 import Analyzers.Classes.Supporters.SyntaticManager;
 import Analyzers.Interface.Grammar;
 
@@ -19,21 +20,27 @@ public class FirstGrammar2 implements Grammar {
    //---methods---
    private void coincidir(String regular_expression){
         //System.out.println("coincidi");
-        final Belongs itIsMatching = lexical.analizer(regular_expression, inString, index);
-        if (itIsMatching == Belongs.YES){
+        final Belongs itIsMatching = lexical.analizer_cursor(regular_expression, inString,cursor);
+        System.out.println(inString + " : "+ regular_expression);
+        if (itIsMatching == Belongs.NO){
             errorMessage= lexical.information();  
             throw new CancellationException(); 
         }
-        System.out.println(regular_expression);
-        if(index < inString.length()-1){
-            index = lexical.getLastIndex();
-            cursor = index + 2;
+        if(1 < inString.length()){
+            int indexAdded = lexical.getLastIndex();
+            index = index + indexAdded;
+            inString = inString.substring(indexAdded);
+            cursor = index + 1;
         }
    }
     private void subAdd(){ // usando iteraciones.
         while(true){
-            //System.out.println("subAdd");
-            preanalis = inString.charAt(index);
+            System.out.println("subAdd");
+            Word[] wordsToAnalize =  {
+                new Word("+", "[+]", '+'),
+                new Word("-", "[-]", '-')
+            };
+            preanalis = lexical.preanalisis(wordsToAnalize, inString);
             switch (preanalis){ //pre-analysis
                 case '+':
                     coincidir("[+]");
@@ -56,7 +63,11 @@ public class FirstGrammar2 implements Grammar {
     private void divMul(){ // usando iteraciones.
         while(true){
             System.out.println("divMul");
-            preanalis = inString.charAt(index);
+            Word[] wordsToAnalize =  {
+                new Word("*", "[*]", '*'),
+                new Word("/", "[/]", '/')
+            };
+            preanalis = lexical.preanalisis(wordsToAnalize, inString);
             switch (preanalis){ //pre-analysis
                 case '*':
                     coincidir("[*]");
@@ -73,8 +84,11 @@ public class FirstGrammar2 implements Grammar {
     } 
     private void factor(){
         while(true){
-            //System.out.println("factor");
-            preanalis = inString.charAt(index);
+            System.out.println("factor");
+            Word[] wordsToAnalize =  {
+                new Word("(", "[(]", '(')
+            };
+            preanalis = lexical.preanalisis(wordsToAnalize, inString);
             switch(preanalis){
                 case '(':   
                     coincidir("[(]");
@@ -88,11 +102,10 @@ public class FirstGrammar2 implements Grammar {
         }
     }
     private void digito(){
-        preanalis = inString.charAt(index);
-        final boolean digit = Character.isDigit(preanalis);
-        //System.out.println("digito");
-        if(digit){  
-            coincidir("" + preanalis);
+        final Belongs preanalisis = lexical.isThere("[0-9]+", inString);
+        System.out.println("digito");
+        if(preanalisis == Belongs.YES){  
+            coincidir("[0-9]+");
             return; 
         }
         //here, we will detect this string isn't from the language.
