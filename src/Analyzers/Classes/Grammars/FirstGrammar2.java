@@ -2,7 +2,7 @@ package Analyzers.Classes.Grammars;
 
 import java.util.concurrent.CancellationException;
 
-import Analyzers.Classes.Dates.Word;
+import Analyzers.Classes.Dates.Token;
 import Analyzers.Classes.Supporters.SyntaticManager;
 import Analyzers.Interface.Grammar;
 
@@ -36,9 +36,9 @@ public class FirstGrammar2 implements Grammar {
     private void subAdd(){ // usando iteraciones.
         while(true){
             System.out.println("subAdd");
-            Word[] wordsToAnalize =  {
-                new Word("+", "[+]", '+'),
-                new Word("-", "[-]", '-')
+            Token[] wordsToAnalize =  {
+                new Token("+", "[+]", '+'),
+                new Token("-", "[-]", '-')
             };
             preanalis = lexical.preanalisis(wordsToAnalize, inString);
             switch (preanalis){ //pre-analysis
@@ -63,9 +63,9 @@ public class FirstGrammar2 implements Grammar {
     private void divMul(){ // usando iteraciones.
         while(true){
             System.out.println("divMul");
-            Word[] wordsToAnalize =  {
-                new Word("*", "[*]", '*'),
-                new Word("/", "[/]", '/')
+            Token[] wordsToAnalize =  {
+                new Token("*", "[*]", '*'),
+                new Token("/", "[/]", '/')
             };
             preanalis = lexical.preanalisis(wordsToAnalize, inString);
             switch (preanalis){ //pre-analysis
@@ -85,8 +85,8 @@ public class FirstGrammar2 implements Grammar {
     private void factor(){
         while(true){
             System.out.println("factor");
-            Word[] wordsToAnalize =  {
-                new Word("(", "[(]", '(')
+            Token[] wordsToAnalize =  {
+                new Token("(", "[(]", '(')
             };
             preanalis = lexical.preanalisis(wordsToAnalize, inString);
             switch(preanalis){

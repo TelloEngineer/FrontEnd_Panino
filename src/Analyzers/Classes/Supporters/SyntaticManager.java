@@ -3,7 +3,7 @@ package Analyzers.Classes.Supporters;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import Analyzers.Classes.Dates.Word;
+import Analyzers.Classes.Dates.Token;
 import Analyzers.Interface.Information;
 
 public class SyntaticManager implements Information{
@@ -17,20 +17,20 @@ public class SyntaticManager implements Information{
         return stateMessage;
     }
 
-     public char preanalisis(Word[] words, String inString){
+     public char preanalisis(Token[] words, String inString){
         int i = 0;
         for (i = 0; i < words.length; i++) {
-            if(isThere(words[i].getlexema(),inString) == Belongs.YES){
+            if(isThere(words[i].getLexema(),inString) == Belongs.YES){
               return words[i].getId();  
             }
         }
         return '0';
     }
 
-    public char preanalisis(Word[] words, String inString, int index){
+    public char preanalisis(Token[] words, String inString, int index){
         int i = 0;
         for (i = 0; i < words.length; i++) {
-            if(isThere(words[i].getlexema(),inString, index) == Belongs.YES){
+            if(isThere(words[i].getLexema(),inString, index) == Belongs.YES){
               return words[i].getId();  
             }
         }
