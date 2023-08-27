@@ -11,8 +11,12 @@ import Analyzers.Interface.Information;
 
 public class Semantic implements Information{
     private List<Identifier> symbologyTable = new LinkedList<Identifier>();
-    private List<Token> reservedWords = new ArrayList<Token>();
+    private List<Token> reservedWords;
     private String analyzed;
+
+    public Semantic(ArrayList<Token> reservedWords){
+        this.reservedWords = reservedWords;
+    }
 
     public boolean addIdentifier(Identifier word_to_add){
         final boolean isThere = symbologyTable.contains(word_to_add);

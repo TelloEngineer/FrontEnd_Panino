@@ -108,9 +108,7 @@ public class FirstGrammar2 implements Grammar {
             coincidir("[0-9]+");
             return; 
         }
-        //here, we will detect this string isn't from the language.
-        errorMessage = "deberia tener un digito, en el caracter: " + cursor;
-        throw new CancellationException();
+        coincidir("([_a-zA-Z][a-zA-Z0-9]*)");
     }
     private void expression(){
         //System.out.println("expression");

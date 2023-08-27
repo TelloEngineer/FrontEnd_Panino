@@ -9,7 +9,7 @@ public class App {
     public static void main(String[] args) throws Exception {
         Analyzer analyzer = new StringAnalyzer();
         SyntaticManager s = new SyntaticManager();
-        Belongs toGrammar = analyzer.isFromGrammar("   2 + (8 -9)",new FirstGrammar2());
+        Belongs toGrammar = analyzer.isFromGrammar("   2 + (8 - as -9)",new FirstGrammar2());
         System.out.println(toGrammar + " - " + analyzer.information());
         Token words[] = {new Token("3","3",'3'),new Token("2","2",'2')};
         System.out.println(s.preanalisis(words,"  2+4", 0) + " " + s.getLastIndex());
