@@ -1,12 +1,15 @@
 package Analyzers.Classes.Grammars;
 
+import java.util.List;
 import java.util.concurrent.CancellationException;
 
 import Analyzers.Classes.Dates.Token;
+import Analyzers.Classes.Supporters.LexycalComponents;
 import Analyzers.Classes.Supporters.SyntaticManager;
+import Analyzers.Interface.GetLexycal;
 import Analyzers.Interface.Grammar;
 
-public class FirstGrammar2 implements Grammar {
+public class FirstGrammar2 implements Grammar, GetLexycal{
     
     public FirstGrammar2(){}
     // private
@@ -16,12 +19,14 @@ public class FirstGrammar2 implements Grammar {
    private int cursor;
    private char preanalis;
    private String errorMessage;
+   private LexycalComponents component = new LexycalComponents();
    private SyntaticManager lexical = new SyntaticManager();
+   
    //---methods---
    private void coincidir(String regular_expression){
         //System.out.println("coincidi");
         final Belongs itIsMatching = lexical.analizer_cursor(regular_expression, inString,cursor);
-        System.out.println(inString + " : "+ regular_expression);
+        //System.out.println(inString + " : "+ regular_expression);
         if (itIsMatching == Belongs.NO){
             errorMessage= lexical.information();  
             throw new CancellationException(); 
@@ -35,7 +40,7 @@ public class FirstGrammar2 implements Grammar {
    }
     private void subAdd(){ // usando iteraciones.
         while(true){
-            System.out.println("subAdd");
+            //System.out.println("subAdd");
             Token[] wordsToAnalize =  {
                 new Token("+", "[+]", '+'),
                 new Token("-", "[-]", '-')
@@ -44,10 +49,12 @@ public class FirstGrammar2 implements Grammar {
             switch (preanalis){ //pre-analysis
                 case '+':
                     coincidir("[+]");
+                    component.setComponent(wordsToAnalize[0]);
                     term();
                     continue;
                 case '-':
                     coincidir("[-]");
+                    component.setComponent(wordsToAnalize[1]);
                     term();
                     continue;
                 default:
@@ -62,7 +69,7 @@ public class FirstGrammar2 implements Grammar {
     }
     private void divMul(){ // usando iteraciones.
         while(true){
-            System.out.println("divMul");
+            //System.out.println("divMul");
             Token[] wordsToAnalize =  {
                 new Token("*", "[*]", '*'),
                 new Token("/", "[/]", '/')
@@ -71,10 +78,12 @@ public class FirstGrammar2 implements Grammar {
             switch (preanalis){ //pre-analysis
                 case '*':
                     coincidir("[*]");
+                    component.setComponent(wordsToAnalize[0]);
                     factor();
                     continue;
                 case '/':
                     coincidir("[/]");
+                    component.setComponent(wordsToAnalize[1]);
                     factor();
                     continue;
                 default:
@@ -84,7 +93,7 @@ public class FirstGrammar2 implements Grammar {
     } 
     private void factor(){
         while(true){
-            System.out.println("factor");
+            //System.out.println("factor");
             Token[] wordsToAnalize =  {
                 new Token("(", "[(]", '(')
             };
@@ -92,8 +101,10 @@ public class FirstGrammar2 implements Grammar {
             switch(preanalis){
                 case '(':   
                     coincidir("[(]");
+                    component.setComponent(wordsToAnalize[0]);
                     expression();
                     coincidir("[)]");
+                    component.setComponent(new Token(")", "[)]", ')'));
                     return;
                 default:
                     digito();
@@ -102,13 +113,24 @@ public class FirstGrammar2 implements Grammar {
         }
     }
     private void digito(){
-        final Belongs preanalisis = lexical.isThere("[0-9]+", inString);
-        System.out.println("digito");
-        if(preanalisis == Belongs.YES){  
-            coincidir("[0-9]+");
-            return; 
-        }
-        coincidir("([_a-zA-Z][a-zA-Z0-9]*)");
+        Token[] wordsToAnalize =  {
+                new Token("entero", "[0-9]+", 'e'),
+                new Token("float", "[0-9]+.[0-9]+", 'f')
+            };
+            preanalis = lexical.preanalisis(wordsToAnalize, inString);
+            switch(preanalis){
+                case 'e':
+                    coincidir("[0-9]+");
+                    component.setComponent(new Token(lexical.information(), "[0-9]+", 'e'));
+                break;
+                case 'f':
+                    coincidir("[0-9]+.[0-9]+");
+                    component.setComponent(new Token(lexical.information(), "[0-9]+.[0-9]+", 'f'));
+                break;
+                default:
+                    coincidir("[a-zA-Z][a-zA-Z0-9]*");
+                    component.setComponent(new Token(lexical.information(), "[a-zA-Z][a-zA-Z0-9]*", 'i'));
+            }
     }
     private void expression(){
         //System.out.println("expression");
@@ -126,10 +148,15 @@ public class FirstGrammar2 implements Grammar {
         try {
             expression();
             errorMessage = "sin errores";
+            component.seeComponents();
             return Belongs.YES;
         }catch(CancellationException expected){
             return Belongs.NO;
         }
+    }
+    @Override
+    public List<Token> getLexycal() {
+        return component.getLexycalComponents();     
     }
     
 }
