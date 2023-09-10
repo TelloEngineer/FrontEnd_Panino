@@ -46,6 +46,7 @@ public class GrammarV1_0 implements Grammar, GetLexycal{
                 new Token("palabra reservada int","int","int",1),
                 new Token("palabra reservada float","float", "float", 2),
                 new Token("palabra reservada void","void","void",0),
+                new Token("Comentario","#","[#]",'#'),
                 new Token("identificador","", "[a-zA-Z][a-zA-Z0-9]*", 'i')
         };
     }
@@ -59,16 +60,23 @@ public class GrammarV1_0 implements Grammar, GetLexycal{
            return true; 
         }
         if(tokenFound.equals(new Token())){
-            stateGrammar = "se encontro un token no valido, cursor: " + cursor;
+            stateGrammar = "no se encontro mas tokens validos, cursor: " + cursor;
             return true;
         }
+        int indexAdded = lexical.getLastIndex();
         switch(tokenFound.getId()){
             case 'i': case 'e': case 'f':
                 tokenFound.setRepresentation(lexical.information());
             break;
+            case '#':
+                lexical.firstOcurrency("/n", inString, indexAdded);
+                indexAdded = lexical.getLastIndex();
+                index = index + indexAdded;
+                inString = inString.substring(indexAdded);
+                cursor = index + 1;
+            return false;
         }
         component.setComponent(tokenFound);
-        int indexAdded = lexical.getLastIndex();
         index = index + indexAdded;
         inString = inString.substring(indexAdded);
         cursor = index + 1;

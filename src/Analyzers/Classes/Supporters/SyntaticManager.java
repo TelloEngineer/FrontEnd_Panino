@@ -71,8 +71,8 @@ public class SyntaticManager implements Information{
     public Belongs analizer(String regular_expression, String inString){
         pattern = Pattern.compile(regular_expression); //defino la expresion regular del automata
         matcher = pattern.matcher(inString); //introdusco la cadena en el automata
-        final boolean wasFind = matcher.find(); //reviso si se encuentra esa expresion esta en la cadena 
         int start, end; //lexema
+        final boolean wasFind = matcher.find(); //reviso si se encuentra esa expresion esta en la cadena 
         final int init = indexNoWhite(inString); 
         if (!wasFind || (init == -1)){
             stateMessage = "no se encontro: " + regular_expression + " en linea: " + init;  
@@ -90,6 +90,15 @@ public class SyntaticManager implements Information{
         stateMessage = inString.substring(start,end);  
         return Belongs.YES;
     }
+    /* public Belongs analizer(String regular_expression, String inString){
+            pattern = Pattern.compile(regular_expression); //defino la expresion regular del automata
+            matcher = pattern.matcher(inString);
+            // reviso si encontro la concurrencia : boolean
+            // busco primer lugar sin espacios blancos : int
+            // reviso lo anterior.  : if
+            // guardo el inicio y fina :
+
+    }*/
 
     public Belongs analizer_cursor(String regular_expression, String inString, int cursor){
         pattern = Pattern.compile(regular_expression); //defino la expresion regular del automata
