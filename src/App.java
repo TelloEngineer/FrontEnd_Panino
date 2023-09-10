@@ -14,7 +14,7 @@ public class App {
         Grammar grammarToAnalize = grammar;
         Belongs toGrammar;
         // si es un archivo, tendra la direccion del mismo
-        toGrammar = analyzer.isFromGrammar("file.txt",grammarToAnalize);  
+        toGrammar = analyzer.isFromGrammar("prueba.txt",grammarToAnalize);  
         // si es una cadena, sera la cadena a analizar.
         //toGrammar = analyzer.isFromGrammar("2 + void int float while if else",grammarToAnalize);
         System.out.println(toGrammar + " - " + analyzer.information());
