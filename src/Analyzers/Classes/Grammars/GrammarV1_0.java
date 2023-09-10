@@ -19,8 +19,8 @@ public class GrammarV1_0 implements Grammar, GetLexycal{
         component = new LexycalComponents();
         lexical = new SyntaticManager();
         wordsToAnalize = new Token[]{
-                new Token("operador logico OR", "||", "[|{2}]", 15),
-                new Token("operador logico AND", "&&", "[&{2}]", 16),
+                new Token("operador logico OR", "||", "[|]{2}", 15),
+                new Token("operador logico AND", "&&", "[&]{2}", 16),
                 new Token("operador logico igualdad", "==", "==", 17),
                 new Token("operador logico igual mayor","<=","<=",18),
                 new Token("operador logico igual menor",">=",">=",19),
@@ -30,13 +30,22 @@ public class GrammarV1_0 implements Grammar, GetLexycal{
                 new Token("coma",",","[,]",','),
                 new Token("parentesis abierto","(", "[(]", '('),
                 new Token("parentesis cerrado",")", "[)]", ')'),
-                new Token("llave abierta", "{","[{]",6),
-                new Token("operador aritmetico","*", "[*]", '*'),
-                new Token("operador aritmetico","/", "[/]", '/'),
-                new Token("operador aritmetico","+", "[+]", '+'),
-                new Token("operador aritmetico","-", "[-]", '-'),
+                new Token("llave abierta", "{","[{]",'{'),
+                new Token("llave cerrada","}","[}]",'}'),
+                new Token("asignacion","=","[=]",'='),
+                new Token("operador aritmetico multiplicacion","*", "[*]", '*'),
+                new Token("operador aritmetico division","/", "[/]", '/'),
+                new Token("operador aritmetico suma","+", "[+]", '+'),
+                new Token("operador aritmetico resta","-", "[-]", '-'),
                 new Token("numero decimal","", "[0-9]+.[0-9]+", 'f'),
                 new Token("numero entero","", "[0-9]+", 'e'),
+                new Token("palabra reservada if", "if", "if", 9),
+                new Token("palabra reservada while","while", "while", 10),
+                new Token("palabra reservada return","return","return",11),
+                new Token("palabra reservada else","else","else", 12),
+                new Token("palabra reservada int","int","int",1),
+                new Token("palabra reservada float","float", "float", 2),
+                new Token("palabra reservada void","void","void",0),
                 new Token("identificador","", "[a-zA-Z][a-zA-Z0-9]*", 'i')
         };
     }
