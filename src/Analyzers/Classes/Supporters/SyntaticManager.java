@@ -17,6 +17,16 @@ public class SyntaticManager implements Information{
         return stateMessage;
     }
 
+    public Token firstToken(Token[] words, String inString){
+        int i = 0;
+        for (i = 0; i < words.length; i++) {
+            if(isThere(words[i].getLexema(),inString) == Belongs.YES){
+              return words[i];  
+            }
+        }
+        return new Token();
+    }
+
      public char preanalisis(Token[] words, String inString){
         int i = 0;
         for (i = 0; i < words.length; i++) {

@@ -24,7 +24,7 @@ public class Semantic implements Information{
             this.analyzed = "Identifier repeated";
             return false;
         }
-        final boolean isReserved = reservedWords.contains(new Token("id",word_to_add.getName(),'c'));
+        final boolean isReserved = reservedWords.contains(new Token("id_se","id",word_to_add.getName(),'c'));
         if(isReserved){
             this.analyzed = "Identifier is a reserved word";
             return false;

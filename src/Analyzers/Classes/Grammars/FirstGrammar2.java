@@ -11,7 +11,10 @@ import Analyzers.Interface.Grammar;
 
 public class FirstGrammar2 implements Grammar, GetLexycal{
     
-    public FirstGrammar2(){}
+    public FirstGrammar2(){
+        component = new LexycalComponents();
+        lexical = new SyntaticManager();
+    }
     // private
    //---tribute---
    private String inString;
@@ -19,8 +22,8 @@ public class FirstGrammar2 implements Grammar, GetLexycal{
    private int cursor;
    private char preanalis;
    private String errorMessage;
-   private LexycalComponents component = new LexycalComponents();
-   private SyntaticManager lexical = new SyntaticManager();
+   private LexycalComponents component;
+   private SyntaticManager lexical;
    
    //---methods---
    private void coincidir(String regular_expression){
@@ -42,8 +45,8 @@ public class FirstGrammar2 implements Grammar, GetLexycal{
         while(true){
             //System.out.println("subAdd");
             Token[] wordsToAnalize =  {
-                new Token("+", "[+]", '+'),
-                new Token("-", "[-]", '-')
+                new Token("operador aritmetico","+", "[+]", '+'),
+                new Token("operador aritmetico","-", "[-]", '-')
             };
             preanalis = lexical.preanalisis(wordsToAnalize, inString);
             switch (preanalis){ //pre-analysis
@@ -71,8 +74,8 @@ public class FirstGrammar2 implements Grammar, GetLexycal{
         while(true){
             //System.out.println("divMul");
             Token[] wordsToAnalize =  {
-                new Token("*", "[*]", '*'),
-                new Token("/", "[/]", '/')
+                new Token("operador aritmetico","*", "[*]", '*'),
+                new Token("operador aritmetico","/", "[/]", '/')
             };
             preanalis = lexical.preanalisis(wordsToAnalize, inString);
             switch (preanalis){ //pre-analysis
@@ -95,7 +98,7 @@ public class FirstGrammar2 implements Grammar, GetLexycal{
         while(true){
             //System.out.println("factor");
             Token[] wordsToAnalize =  {
-                new Token("(", "[(]", '(')
+                new Token("parentesis abierto","(", "[(]", '(')
             };
             preanalis = lexical.preanalisis(wordsToAnalize, inString);
             switch(preanalis){
@@ -104,7 +107,7 @@ public class FirstGrammar2 implements Grammar, GetLexycal{
                     component.setComponent(wordsToAnalize[0]);
                     expression();
                     coincidir("[)]");
-                    component.setComponent(new Token(")", "[)]", ')'));
+                    component.setComponent(new Token("parentesis cerrado",")", "[)]", ')'));
                     return;
                 default:
                     digito();
@@ -114,22 +117,22 @@ public class FirstGrammar2 implements Grammar, GetLexycal{
     }
     private void digito(){
         Token[] wordsToAnalize =  {
-                new Token("entero", "[0-9]+", 'e'),
-                new Token("float", "[0-9]+.[0-9]+", 'f')
+                new Token("numero entero","entero", "[0-9]+", 'e'),
+                new Token("numero decimal","float", "[0-9]+.[0-9]+", 'f')
             };
             preanalis = lexical.preanalisis(wordsToAnalize, inString);
             switch(preanalis){
                 case 'e':
                     coincidir("[0-9]+");
-                    component.setComponent(new Token(lexical.information(), "[0-9]+", 'e'));
+                    component.setComponent(new Token("numero entero",lexical.information(), "[0-9]+", 'e'));
                 break;
                 case 'f':
                     coincidir("[0-9]+.[0-9]+");
-                    component.setComponent(new Token(lexical.information(), "[0-9]+.[0-9]+", 'f'));
+                    component.setComponent(new Token("numero decimal",lexical.information(), "[0-9]+.[0-9]+", 'f'));
                 break;
                 default:
                     coincidir("[a-zA-Z][a-zA-Z0-9]*");
-                    component.setComponent(new Token(lexical.information(), "[a-zA-Z][a-zA-Z0-9]*", 'i'));
+                    component.setComponent(new Token("identificador",lexical.information(), "[a-zA-Z][a-zA-Z0-9]*", 'i'));
             }
     }
     private void expression(){

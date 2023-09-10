@@ -22,7 +22,7 @@ public class LexycalComponents {
     }
     public void seeComponents(){
         for(Token index : components){
-            System.out.println(index.getId() +" - " + index.getLexema() +" - "+ index.getRepresentation());
+            System.out.println(index.getTipo()+ " - " + index.getId() +" - " + index.getLexema() +" - "+ index.getRepresentation());
         }
     }
 }

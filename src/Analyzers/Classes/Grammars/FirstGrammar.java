@@ -4,7 +4,7 @@ import java.util.concurrent.CancellationException;
 
 import Analyzers.Interface.Grammar;
 
-public class FirstGrammar implements Grammar {
+public class FirstGrammar implements Grammar{
     // private
    //---tribute---
    private String inString;

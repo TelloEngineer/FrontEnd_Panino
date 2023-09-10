@@ -1,21 +1,23 @@
 package Analyzers.Classes.Dates;
 
 public class Token {
+    
+    String tipo;
+    String representation;
+    String lexema;
+    char id;
     public Token() {
+        this.tipo= "";
         this.representation = "";
         this.lexema = "";
         this.id = ' ';
     }
-    public Token(String representation, String lexema, char id) {
+    public Token(String tipo, String representation, String lexema, char id) {
+        this.tipo = tipo;
         this.representation = representation;
         this.lexema = lexema;
         this.id = id;
     }
-    String representation;
-    String lexema;
-    char id;
-    
-    
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -57,6 +59,10 @@ public class Token {
     public void setId(char id) {
         this.id = id;
     }
-    
-    
+    public String getTipo() {
+        return tipo;
+    }
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
 }
