@@ -1,3 +1,6 @@
-2 + void int float while if else
-( 8.2 || - as - 9 && >= <= == = ; , { }
-) ñ
+Int void() {
+while (true) {
+if (true)
+return;
+}
+}

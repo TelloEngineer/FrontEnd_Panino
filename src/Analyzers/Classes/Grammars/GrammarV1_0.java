@@ -83,7 +83,6 @@ public class GrammarV1_0 implements Grammar, GetLexycal{
         while(!finished){
             finished = found();
         }
-        component.seeComponents();
         return Belongs.YES;
     }
 
