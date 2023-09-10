@@ -1,14 +1,12 @@
 package Analyzers.Classes.Grammars;
 
 import java.util.List;
-import java.util.concurrent.CancellationException;
 
 import Analyzers.Classes.Dates.Token;
 import Analyzers.Classes.Supporters.LexycalComponents;
 import Analyzers.Classes.Supporters.SyntaticManager;
 import Analyzers.Interface.GetLexycal;
 import Analyzers.Interface.Grammar;
-import Analyzers.Interface.Information.Belongs;
 
 public class GrammarV1_0 implements Grammar, GetLexycal{
     private String inString;
@@ -21,14 +19,24 @@ public class GrammarV1_0 implements Grammar, GetLexycal{
         component = new LexycalComponents();
         lexical = new SyntaticManager();
         wordsToAnalize = new Token[]{
+                new Token("operador logico OR", "||", "[|{2}]", 15),
+                new Token("operador logico AND", "&&", "[&{2}]", 16),
+                new Token("operador logico igualdad", "==", "==", 17),
+                new Token("operador logico igual mayor","<=","<=",18),
+                new Token("operador logico igual menor",">=",">=",19),
+                new Token("operador relacional menor que","<", "[<]", '<'),
+                new Token("operador relacional mayor que", ">", "[>]", '>'),
+                new Token("punto y coma",";", "[;]", ';'),
+                new Token("coma",",","[,]",','),
                 new Token("parentesis abierto","(", "[(]", '('),
                 new Token("parentesis cerrado",")", "[)]", ')'),
+                new Token("llave abierta", "{","[{]",6),
                 new Token("operador aritmetico","*", "[*]", '*'),
                 new Token("operador aritmetico","/", "[/]", '/'),
                 new Token("operador aritmetico","+", "[+]", '+'),
                 new Token("operador aritmetico","-", "[-]", '-'),
-                new Token("numero entero","entero", "[0-9]+", 'e'),
-                new Token("numero decimal","float", "[0-9]+.[0-9]+", 'f'),
+                new Token("numero decimal","", "[0-9]+.[0-9]+", 'f'),
+                new Token("numero entero","", "[0-9]+", 'e'),
                 new Token("identificador","", "[a-zA-Z][a-zA-Z0-9]*", 'i')
         };
     }
@@ -39,14 +47,16 @@ public class GrammarV1_0 implements Grammar, GetLexycal{
         //System.out.println(tokenFound.getLexema() + lexical.information());
         if(!(1 < inString.length())){
            stateGrammar = "fin de la cadena, cursor: " + cursor;
-            return true; 
+           return true; 
         }
         if(tokenFound.equals(new Token())){
             stateGrammar = "se encontro un token no valido, cursor: " + cursor;
             return true;
         }
-        if(tokenFound.getId() == 'i' ){
-            tokenFound.setRepresentation(lexical.information());
+        switch(tokenFound.getId()){
+            case 'i': case 'e': case 'f':
+                tokenFound.setRepresentation(lexical.information());
+            break;
         }
         component.setComponent(tokenFound);
         int indexAdded = lexical.getLastIndex();

@@ -5,14 +5,14 @@ public class Token {
     String tipo;
     String representation;
     String lexema;
-    char id;
+    int id;
     public Token() {
         this.tipo= "";
         this.representation = "";
         this.lexema = "";
         this.id = ' ';
     }
-    public Token(String tipo, String representation, String lexema, char id) {
+    public Token(String tipo, String representation, String lexema, int id) {
         this.tipo = tipo;
         this.representation = representation;
         this.lexema = lexema;
@@ -53,10 +53,10 @@ public class Token {
     public void setLexema(String lexema) {
         this.lexema = lexema;
     }
-    public char getId() {
+    public int getId() {
         return id;
     }
-    public void setId(char id) {
+    public void setId(int id) {
         this.id = id;
     }
     public String getTipo() {

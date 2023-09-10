@@ -27,7 +27,7 @@ public class SyntaticManager implements Information{
         return new Token();
     }
 
-     public char preanalisis(Token[] words, String inString){
+     public int preanalisis(Token[] words, String inString){
         int i = 0;
         for (i = 0; i < words.length; i++) {
             if(isThere(words[i].getLexema(),inString) == Belongs.YES){
@@ -37,7 +37,7 @@ public class SyntaticManager implements Information{
         return '0';
     }
 
-    public char preanalisis(Token[] words, String inString, int index){
+    public int preanalisis(Token[] words, String inString, int index){
         int i = 0;
         for (i = 0; i < words.length; i++) {
             if(isThere(words[i].getLexema(),inString, index) == Belongs.YES){

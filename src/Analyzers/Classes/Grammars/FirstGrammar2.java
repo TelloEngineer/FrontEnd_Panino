@@ -20,7 +20,7 @@ public class FirstGrammar2 implements Grammar, GetLexycal{
    private String inString;
    private int index;
    private int cursor;
-   private char preanalis;
+   private int preanalis;
    private String errorMessage;
    private LexycalComponents component;
    private SyntaticManager lexical;
