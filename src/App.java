@@ -1,13 +1,16 @@
+import javax.swing.SwingUtilities;
+
 import Analyzers.Classes.Dates.Token;
 import Analyzers.Classes.Formats.FileAnalyzer;
 import Analyzers.Classes.Grammars.GrammarV1_0;
 import Analyzers.Interface.Analyzer;
 import Analyzers.Interface.Grammar;
 import Analyzers.Interface.Information.Belongs;
+import UI.mainWindow.Menu;
 
 public class App {
     public static void main(String[] args) throws Exception {
-        Analyzer analyzer;
+       /*Analyzer analyzer;
         analyzer = new FileAnalyzer(); // desde un archivo
         // analyzer = new StringAnalyzer();//desde una cadena
         GrammarV1_0 grammar = new GrammarV1_0();
@@ -21,5 +24,11 @@ public class App {
         for (Token index : grammar.getLexycal()) {
             System.out.println(index.getRepresentation() + " : " + index.getTipo() + " : " + index.getId());
         }
+    	*/
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                new Menu();
+            }
+        });
     }
 }
