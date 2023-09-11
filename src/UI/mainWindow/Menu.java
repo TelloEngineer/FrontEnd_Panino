@@ -119,7 +119,8 @@ public class Menu extends JFrame implements ActionListener {
         analyzer = new StringAnalyzer();
         GrammarV1_0 grammar = new GrammarV1_0();
         Grammar grammarToAnalize = grammar;
-
+        System.out.println(tablaModel.getRowCount());
+        deleteColumns();
         if (e.getSource() == analizarButton) {
             String entrada = entradaField.getText();
             analyzer.isFromGrammar(entrada, grammarToAnalize);
@@ -128,5 +129,11 @@ public class Menu extends JFrame implements ActionListener {
                 tablaModel.addRow(new Object[] { index.getRepresentation(), index.getTipo(), index.getId() });
             }
         }
+    }
+    private void deleteColumns(){
+        while((tablaModel.getRowCount()>0)){
+            tablaModel.removeRow(tablaModel.getRowCount()-1);
+        }
+            
     }
 }

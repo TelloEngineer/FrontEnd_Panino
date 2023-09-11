@@ -72,11 +72,10 @@ public class GrammarV1_0 implements Grammar, GetLexycal{
                 indexAdded = lexical.getLastIndex();
                 index = index + indexAdded;
                 inString = inString.substring(indexAdded);
-                System.out.println("-----"+ inString + "----");
                 cursor = index + 1;
             return false;
         }
-        System.out.println(tokenFound.getLexema() + lexical.information());
+        //System.out.println(tokenFound.getLexema() + lexical.information());
         component.setComponent(tokenFound);
         index = index + indexAdded;
         inString = inString.substring(indexAdded);
