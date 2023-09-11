@@ -72,6 +72,7 @@ public class Menu extends JFrame implements ActionListener {
         constraints.gridheight = 1;
         constraints.fill = GridBagConstraints.BOTH; // Restaurar el relleno a BOTH
 
+
         constraints.gridx = 0;
         constraints.gridy = 1;
         constraints.gridwidth = 3;
