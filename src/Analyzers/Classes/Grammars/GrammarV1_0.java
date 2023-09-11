@@ -33,6 +33,7 @@ public class GrammarV1_0 implements Grammar, GetLexycal{
                 new Token("llave abierta", "{","[{]",'{'),
                 new Token("llave cerrada","}","[}]",'}'),
                 new Token("asignacion","=","[=]",'='),
+                new Token("Comentario","/*","[/][*]",'#'),
                 new Token("operador aritmetico multiplicacion","*", "[*]", '*'),
                 new Token("operador aritmetico division","/", "[/]", '/'),
                 new Token("operador aritmetico suma","+", "[+]", '+'),
@@ -46,7 +47,6 @@ public class GrammarV1_0 implements Grammar, GetLexycal{
                 new Token("palabra reservada int","int","int",1),
                 new Token("palabra reservada float","float", "float", 2),
                 new Token("palabra reservada void","void","void",0),
-                new Token("Comentario","#","[#]",'#'),
                 new Token("identificador","", "[a-zA-Z][a-zA-Z0-9]*", 'i')
         };
     }
@@ -54,7 +54,6 @@ public class GrammarV1_0 implements Grammar, GetLexycal{
     private boolean found(){
         //System.out.println("coincidi");
         Token tokenFound = lexical.firstToken(wordsToAnalize, inString);
-        //System.out.println(tokenFound.getLexema() + lexical.information());
         if(!(1 < inString.length())){
            stateGrammar = "fin de la cadena, cursor: " + cursor;
            return true; 
@@ -69,13 +68,15 @@ public class GrammarV1_0 implements Grammar, GetLexycal{
                 tokenFound.setRepresentation(lexical.information());
             break;
             case '#':
-                lexical.firstOcurrency("/n", inString, indexAdded);
+                lexical.firstOcurrency("[*][/]", inString, indexAdded);
                 indexAdded = lexical.getLastIndex();
                 index = index + indexAdded;
                 inString = inString.substring(indexAdded);
+                System.out.println("-----"+ inString + "----");
                 cursor = index + 1;
             return false;
         }
+        System.out.println(tokenFound.getLexema() + lexical.information());
         component.setComponent(tokenFound);
         index = index + indexAdded;
         inString = inString.substring(indexAdded);

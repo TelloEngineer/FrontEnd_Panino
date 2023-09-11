@@ -1,6 +1,6 @@
-Int void() { #papa
+int void() { /*papa*/
 while (true) {
 if (true)
 return;
 }
-}                   
+}
