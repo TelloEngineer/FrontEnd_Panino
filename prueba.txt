@@ -1,8 +1,7 @@
-int void() { /*papa
-
-*/
+int void() { /*papa*/
+true = 1;
 while (true) {
 if (true)
-return;
 }
+return;
 }

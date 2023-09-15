@@ -119,12 +119,13 @@ public class Menu extends JFrame implements ActionListener {
         analyzer = new StringAnalyzer();
         GrammarV1_0 grammar = new GrammarV1_0();
         Grammar grammarToAnalize = grammar;
+        String entrada = entradaField.getText();
+        analyzer.isFromGrammar(entrada, grammarToAnalize);
+
         System.out.println(tablaModel.getRowCount());
+
         deleteColumns();
         if (e.getSource() == analizarButton) {
-            String entrada = entradaField.getText();
-            analyzer.isFromGrammar(entrada, grammarToAnalize);
-
             for (Token index : grammar.getLexycal()) {
                 tablaModel.addRow(new Object[] { index.getRepresentation(), index.getTipo(), index.getId() });
             }
