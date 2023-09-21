@@ -3,6 +3,8 @@ import javax.swing.SwingUtilities;
 import Analyzers.Classes.Dates.Token;
 import Analyzers.Classes.Formats.FileAnalyzer;
 import Analyzers.Classes.Grammars.GrammarV1_0;
+import Analyzers.Classes.Supporters.FileManager;
+import Analyzers.Classes.Supporters.Finder;
 import Analyzers.Interface.Analyzer;
 import Analyzers.Interface.Grammar;
 import Analyzers.Interface.Information.Belongs;
@@ -25,10 +27,20 @@ public class App {
             System.out.println(index.getRepresentation() + " : " + index.getTipo() + " : " + index.getId());
         }
     	*/
-        SwingUtilities.invokeLater(new Runnable() {
+        /* 
+        Finder s = new Finder();
+        //s.setInString("  /* hola   ");
+        //s.firstOcurrency("[^\\s]");
+        System.out.println(s.retrieveBetween("[/][*]", "[*][/]"));
+        System.out.println(s.getSubString() + " - " + s.getStart() + " - " + s.getEnd());
+        */
+        /* SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 new Menu();
             }
         });
+        */
+        FileManager j = new FileManager();
+        j.fileToString("f.txt");
     }
 }

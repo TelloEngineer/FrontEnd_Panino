@@ -17,9 +17,9 @@ public class GrammarV1_0 implements Grammar, GetLexycal{
     private int index, cursor;
     public GrammarV1_0(){
         component = new LexycalComponents();
-        lexical = new SyntaticManager();
+        lexical = new SyntaticManager(); 
         wordsToAnalize = new Token[]{
-                new Token("operador logico OR", "||", "[|]{2}", 15),
+                new Token("operador logico OR", "||", "[|][|]", 15),
                 new Token("operador logico AND", "&&", "[&]{2}", 16),
                 new Token("operador logico igualdad", "==", "==", 17),
                 new Token("operador logico igual mayor","<=","<=",18),
@@ -38,7 +38,7 @@ public class GrammarV1_0 implements Grammar, GetLexycal{
                 new Token("operador aritmetico division","/", "[/]", '/'),
                 new Token("operador aritmetico suma","+", "[+]", '+'),
                 new Token("operador aritmetico resta","-", "[-]", '-'),
-                new Token("numero decimal","", "[0-9]+.[0-9]+", 'f'),
+                new Token("numero decimal","", "[0-9]+[.][0-9]+", 'f'),
                 new Token("numero entero","", "[0-9]+", 'e'),
                 new Token("palabra reservada if", "if", "if", 9),
                 new Token("palabra reservada while","while", "while", 10),

@@ -6,11 +6,15 @@ import java.util.regex.Pattern;
 import Analyzers.Classes.Dates.Token;
 import Analyzers.Interface.Information;
 
+
 public class SyntaticManager implements Information{
     private Pattern pattern;
     private Matcher matcher;
     private String stateMessage;
     private int lastIndex;
+
+    public SyntaticManager() {
+    }
 
     @Override
     public String information() {

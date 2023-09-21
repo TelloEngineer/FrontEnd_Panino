@@ -11,13 +11,14 @@ public class FileManager {
         if(!file.exists()){ 
            return null;
         }
+        String content;
         try {
-            String content = new String(Files.readAllBytes(Paths.get(pathfile)));
-            return content;
+            content = new String(Files.readAllBytes(Paths.get(pathfile)));
         } catch (IOException e) {
             e.printStackTrace();
             return null;
         }
-        
+        System.out.println(content);
+        return content;
     }
 }
