@@ -4,21 +4,24 @@ import Analyzers.Classes.Supporters.FileManager;
 import Analyzers.Interface.Analyzer;
 import Analyzers.Interface.Grammar;
 
+// Analiza un archivo, y lo guarda en String
 public class FileAnalyzer implements Analyzer{
-    private FileManager fileManager;
-    private String infoAnalyze;
+    private FileManager fileManager; //el que abre los archivos
+    private String infoAnalyze; //guarda el estado del analisis
 
-    public FileAnalyzer() {
+    public FileAnalyzer() { //constructor
         this.fileManager = new FileManager();
         this.infoAnalyze = "haga una analisis antes";
     }
 
-    public String information(){
+    public String information(){ //devuelve el estado de la lectura del archivo.
         return this.infoAnalyze;
     }  
 
+    //defino, el archivo a analizar
+    //y la gramatica que voy a analizar
     @Override
-    public Belongs isFromGrammar(String file_to_analyze, Grammar grammar_to_analyze) {
+    public Belongs isFromGrammar(String file_to_analyze, Grammar grammar_to_analyze) { 
         String stringAnalyze;
         stringAnalyze = fileManager.fileToString(file_to_analyze);
         Boolean fileExists = stringAnalyze != null;

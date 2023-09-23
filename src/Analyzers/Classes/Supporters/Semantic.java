@@ -8,17 +8,17 @@ import Analyzers.Classes.Dates.Identifier;
 import Analyzers.Classes.Dates.Token;
 import Analyzers.Interface.Information;
 
-
+//// *** FUTURO USO ***//
 public class Semantic implements Information{
-    private List<Identifier> symbologyTable = new LinkedList<Identifier>();
-    private List<Token> reservedWords;
-    private String analyzed;
+    private List<Identifier> symbologyTable = new LinkedList<Identifier>(); //guarda los identificadores
+    private List<Token> reservedWords; //guarda las palabras reservadas.
+    private String analyzed; // se guarda la palabra analizada
 
     public Semantic(ArrayList<Token> reservedWords){
-        this.reservedWords = reservedWords;
+        this.reservedWords = reservedWords; //guarda la lista de palabaras reservadas
     }
 
-    public boolean addIdentifier(Identifier word_to_add){
+    public boolean addIdentifier(Identifier word_to_add){ //agrega nuevo identificador
         final boolean isThere = symbologyTable.contains(word_to_add);
         if(isThere){
             this.analyzed = "Identifier repeated";
@@ -33,17 +33,17 @@ public class Semantic implements Information{
         this.analyzed = word_to_add.getName();
         return true;
     }
-    public boolean isExisting(Identifier word_to_search){
+    public boolean isExisting(Identifier word_to_search){ // revisa si existe
         final boolean isThere = symbologyTable.contains(word_to_search);
-        if(isThere){
-            this.analyzed = word_to_search.getName();
+        if(isThere){ //si esta, devuelve un true.
+            this.analyzed = word_to_search.getName(); //guarda la palabra encontrada.
             return true;
         }
-        this.analyzed = "It's not a existing identifier";
-        return false;
+        this.analyzed = "It's not a existing identifier"; //guarda mensaje de error
+        return false; //devuelve falso
     }
     @Override
     public String information() {
-        return this.analyzed;
+        return this.analyzed; //devuelve le analizado.
     }
 }

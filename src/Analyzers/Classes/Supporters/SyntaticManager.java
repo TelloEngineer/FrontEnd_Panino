@@ -17,40 +17,41 @@ public class SyntaticManager implements Information{
     }
 
     @Override
-    public String information() {
+    public String information() { //devuel el estado del analisis
         return stateMessage;
     }
 
-    public Token firstToken(Token[] words, String inString){
+    public Token firstToken(Token[] words, String inString){ //recibe Tokens y cadena a analizar
         int i = 0;
-        for (i = 0; i < words.length; i++) {
-            if(isThere(words[i].getLexema(),inString) == Belongs.YES){
-              return words[i];  
+        for (i = 0; i < words.length; i++) { // recorre cada Token
+            if(isThere(words[i].getLexema(),inString) == Belongs.YES){ //si encuentra uno
+              return words[i];  //lo devuelve
             }
         }
-        return new Token();
+        return new Token(); // si no, devuelve token en blanco
     }
 
-     public int preanalisis(Token[] words, String inString){
+     public int preanalisis(Token[] words, String inString){ //recibe Tokens y cadena a analizar
         int i = 0;
-        for (i = 0; i < words.length; i++) {
-            if(isThere(words[i].getLexema(),inString) == Belongs.YES){
-              return words[i].getId();  
+        for (i = 0; i < words.length; i++) { // recorre cada Token
+            if(isThere(words[i].getLexema(),inString) == Belongs.YES){ //si encuentra uno
+              return words[i].getId();   //devuelve id del mismo
             }
         }
-        return '0';
+        return '0'; //regresa cero, si no lo encuentra.
     }
 
-    public int preanalisis(Token[] words, String inString, int index){
+    public int preanalisis(Token[] words, String inString, int index){ //recibe Tokens, index y cadena a analizar
         int i = 0;
-        for (i = 0; i < words.length; i++) {
-            if(isThere(words[i].getLexema(),inString, index) == Belongs.YES){
-              return words[i].getId();  
+        for (i = 0; i < words.length; i++) { // recorre cada Token
+            if(isThere(words[i].getLexema(),inString, index) == Belongs.YES){ //si encuentra uno
+              return words[i].getId();  //devuelve id del mismo
             }
         }
-        return '0';
+        return '0'; //regresa 0, si no encuntra nada
     }
 
+    //quita los espacios en blanco
     public String removeWhite(String s) {
         
         // Creating a pattern for whitespaces
@@ -62,14 +63,15 @@ public class SyntaticManager implements Information{
         // Replacing
         return matcher.replaceAll("");
     }
+    //devuelve la primera direccion sin espacio en blanco
     public int indexNoWhite(String string){
-        Pattern noWhite = Pattern.compile("[^\\s]");
-        Matcher findId = noWhite.matcher(string);
-        final boolean wasFind = findId.find();
-        if(!wasFind){
+        Pattern noWhite = Pattern.compile("[^\\s]"); //expresion hasta donde no hay espacio en blanco
+        Matcher findId = noWhite.matcher(string); //agarra la cadena a analizar
+        final boolean wasFind = findId.find(); //ve si lo encontro
+        if(!wasFind){ //si no lo encuentra, debuelve -1
             return -1;
         }
-        return findId.start();
+        return findId.start(); //si lo encuentra, devuelve la posicion donde se encontro.
     }
 
     public Belongs analizer(String regular_expression, String inString){
@@ -233,6 +235,7 @@ public class SyntaticManager implements Information{
         stateMessage = inString.substring(start,end);
         return Belongs.YES;
     }
+    /// obtiene el ultimo index obtenido
     public int getLastIndex(){
         return lastIndex;
     }

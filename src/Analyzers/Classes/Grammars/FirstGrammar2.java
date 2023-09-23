@@ -9,6 +9,10 @@ import Analyzers.Classes.Supporters.SyntaticManager;
 import Analyzers.Interface.GetLexycal;
 import Analyzers.Interface.Grammar;
 
+
+/// NO SE USA ///
+/// **** prototipo 1, de grammar V0_1. IGNORARLO ****///
+/// **** POSIBLE, uso en sintatico ///
 public class FirstGrammar2 implements Grammar, GetLexycal{
     
     public FirstGrammar2(){

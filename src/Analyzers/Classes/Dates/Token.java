@@ -1,11 +1,14 @@
 package Analyzers.Classes.Dates;
 
+
+/// Son los campos del token//
 public class Token {
     
-    String tipo;
-    String representation;
-    String lexema;
-    int id;
+    String tipo; /// dice el nombre del mismo
+    String representation; // como se ve
+    String lexema; // la expresion regular que lo representa
+    int id; // el id del mismo
+    /// constructores
     public Token() {
         this.tipo= "";
         this.representation = "";
@@ -18,6 +21,8 @@ public class Token {
         this.lexema = lexema;
         this.id = id;
     }
+
+    /// para comprararlos
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -41,6 +46,8 @@ public class Token {
             return false;
         return true;
     }
+
+    ///Sus getters y setters
     public String getRepresentation() {
         return representation;
     }

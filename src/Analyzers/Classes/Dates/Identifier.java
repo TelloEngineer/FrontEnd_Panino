@@ -1,8 +1,12 @@
 package Analyzers.Classes.Dates;
 
+//// **** FUTURO USO ****//
+//// Identificadores, se guarda sus campos
 public class Identifier {
-    private String name;
-    private String dataType;
+    private String name; //el nombre de la variable
+    private String dataType; //tipo de dato
+
+    //Getters y setters
     public String getName() {
         return name;
     }
@@ -15,6 +19,8 @@ public class Identifier {
     public void setDataType(String dataType) {
         this.dataType = dataType;
     }
+
+    //para poder compararlos
     @Override
     public int hashCode() {
         final int prime = 31;

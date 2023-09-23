@@ -3,14 +3,15 @@ package Analyzers.Classes.Formats;
 import Analyzers.Interface.Analyzer;
 import Analyzers.Interface.Grammar;
 
+//  guarda en String, la cadena a analizar
 public class StringAnalyzer implements Analyzer{
-    private String infoAnalyze;
+    private String infoAnalyze; //es el estado del analisis de la cadena
 
-    public StringAnalyzer() {
+    public StringAnalyzer() { //inicializa la variable
         this.infoAnalyze = "haga una analisis antes";
     }
 
-    @Override
+    @Override //obtiene la cadena a analizar, y la gramatica que analizara
     public Belongs isFromGrammar(String string_to_analyze, Grammar grammar_to_analyze) {
         Boolean stringExists = string_to_analyze != null;
         if (!stringExists) {
@@ -22,6 +23,7 @@ public class StringAnalyzer implements Analyzer{
         return belongsHere;
     }
 
+    //obtiene el resultado del analisis.
     @Override
     public String information() {
         return this.infoAnalyze;

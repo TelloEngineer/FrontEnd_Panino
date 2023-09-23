@@ -4,6 +4,8 @@ import java.util.concurrent.CancellationException;
 
 import Analyzers.Interface.Grammar;
 
+/// NO SE USA ///
+/// **** prototipo 1, de grammar V0_1. IGNORARLO ****///
 public class FirstGrammar implements Grammar{
     // private
    //---tribute---
